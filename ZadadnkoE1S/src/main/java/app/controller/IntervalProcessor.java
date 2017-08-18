@@ -17,24 +17,24 @@ public class IntervalProcessor {
     
     public void addNewInterval(int begin, int end){
        
-        List<Interval> filteredList = intervalContainer.stream().filter(interval -> checkValuesAreInRange(begin, end, interval) == true)
-                                                                .collect(Collectors.toList());
+        List<Interval> intervalsContainingNewRange = intervalContainer.stream().filter(interval -> checkValuesAreInRange(begin, end, interval) == true)
+                                                                      .collect(Collectors.toList());
      
-        if(filteredList.isEmpty()){
+        if(intervalsContainingNewRange.isEmpty()){
             intervalContainer.add(new Interval(begin, end));
         }
         else{
-            List<Interval> notFilteredredList = intervalContainer.stream().filter(interval -> checkValuesAreInRange(begin, end, interval)==false)
-                                                                          .collect(Collectors.toList());
+            List<Interval> notUsedIntervals = intervalContainer.stream().filter(interval -> checkValuesAreInRange(begin, end, interval)==false)
+                                                                        .collect(Collectors.toList());
         
-            while(filteredList.size()>1){
-                filteredList.set(0, mergeIntervalsRange(filteredList.get(0), filteredList.get(1)));
-                filteredList.remove(1);
+            while(intervalsContainingNewRange.size()>1){
+                intervalsContainingNewRange.set(0, mergeIntervalsRange(intervalsContainingNewRange.get(0), intervalsContainingNewRange.get(1)));
+                intervalsContainingNewRange.remove(1);
             }
 
             intervalContainer.clear();
-            intervalContainer.addAll(filteredList);
-            intervalContainer.addAll(notFilteredredList); 
+            intervalContainer.addAll(intervalsContainingNewRange);
+            intervalContainer.addAll(notUsedIntervals); 
         } 
    }
     
