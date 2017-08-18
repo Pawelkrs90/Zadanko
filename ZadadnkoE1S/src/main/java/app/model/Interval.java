@@ -7,8 +7,8 @@ public class Interval {
     private int intervalEnd;
     
     public Interval(int begin, int end){
-        this.intervalBegin = (begin<end)?begin:end;
-        this.intervalEnd = (begin>end)?begin:end;
+        this.intervalBegin = begin;
+        this.intervalEnd = end;
     }
 
     public int getIntervalBegin() {

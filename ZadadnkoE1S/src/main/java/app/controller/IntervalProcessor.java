@@ -44,15 +44,12 @@ public class IntervalProcessor {
     
     public boolean checkValuesAreInRange(int begin, int end, Interval interval){ 
         
-        int min = begin<end?begin:end;
-        int max = begin>end?begin:end;
-        
-        if((min >= interval.getIntervalBegin() && min <= interval.getIntervalEnd()) 
-            || (max >= interval.getIntervalBegin() && max <= interval.getIntervalEnd())){
+        if((begin >= interval.getIntervalBegin() && begin <= interval.getIntervalEnd()) 
+            || (end >= interval.getIntervalBegin() && end <= interval.getIntervalEnd())){
             
             return true;
         }
-        else if(interval.getIntervalBegin()> min && interval.getIntervalEnd() < max){
+        else if(interval.getIntervalBegin()> begin && interval.getIntervalEnd() < end){
             return true;
         }
         else{   
