@@ -20,13 +20,17 @@ public class IntervalProcessor {
         List<Interval> intervalsContainingNewRange = intervalContainer.stream().filter(interval -> checkValuesAreInRange(begin, end, interval) == true)
                                                                       .collect(Collectors.toList());
      
+        
         if(intervalsContainingNewRange.isEmpty()){
             intervalContainer.add(new Interval(begin, end));
         }
         else{
+            
+            intervalsContainingNewRange.set(0, mergeIntervalsRange(intervalsContainingNewRange.get(0), new Interval(begin, end)));
+            
             List<Interval> notUsedIntervals = intervalContainer.stream().filter(interval -> checkValuesAreInRange(begin, end, interval)==false)
                                                                         .collect(Collectors.toList());
-        
+                
             while(intervalsContainingNewRange.size()>1){
                 intervalsContainingNewRange.set(0, mergeIntervalsRange(intervalsContainingNewRange.get(0), intervalsContainingNewRange.get(1)));
                 intervalsContainingNewRange.remove(1);
@@ -39,14 +43,20 @@ public class IntervalProcessor {
    }
     
     
-    public boolean checkValuesAreInRange(int begin, int end, Interval interval){   //czy chociaz jedno jest w zakresie
+    public boolean checkValuesAreInRange(int begin, int end, Interval interval){ 
         
-        if((begin >= interval.getIntervalBegin() && begin <= interval.getIntervalEnd()) 
-            || (end >= interval.getIntervalBegin() && end <= interval.getIntervalEnd())){
+        int min = begin<end?begin:end;
+        int max = begin>end?begin:end;
+        
+        if((min >= interval.getIntervalBegin() && min <= interval.getIntervalEnd()) 
+            || (max >= interval.getIntervalBegin() && max <= interval.getIntervalEnd())){
             
             return true;
         }
-        else{
+        else if(interval.getIntervalBegin()> min && interval.getIntervalEnd() < max){
+            return true;
+        }
+        else{   
             return false;
         } 
     }
