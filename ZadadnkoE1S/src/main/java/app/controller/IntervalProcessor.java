@@ -45,16 +45,12 @@ public class IntervalProcessor {
     public boolean checkValuesAreInRange(int begin, int end, Interval interval){ 
         
         if((begin >= interval.getIntervalBegin() && begin <= interval.getIntervalEnd()) 
-            || (end >= interval.getIntervalBegin() && end <= interval.getIntervalEnd())){
-            
+          || (end >= interval.getIntervalBegin() && end <= interval.getIntervalEnd())
+          || (interval.getIntervalBegin()> begin && interval.getIntervalEnd() < end)){
+
             return true;
         }
-        else if(interval.getIntervalBegin()> begin && interval.getIntervalEnd() < end){
-            return true;
-        }
-        else{   
-            return false;
-        } 
+        return false;
     }
     
     public Interval mergeIntervalsRange(Interval intervalA, Interval intervalB){   

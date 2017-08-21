@@ -35,8 +35,8 @@ public class TestIntervals {
      intervalProcessor.addNewInterval(2, 4);   
      
      intervalProcessor.addNewInterval(1, 8);   
-     */
-      
+     
+      */
     }
      
     @After
